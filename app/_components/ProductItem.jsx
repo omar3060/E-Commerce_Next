@@ -7,6 +7,9 @@ const ProductItem = ({product}) => {
       <div className="p-3">
         <h2 className="text-[16px] md:text-[20px] font-medium">{product?.title}</h2>
         <h2 className="text-[14px] text-gray-400">{product?.category}</h2>
+        
+        
+        
       </div>
     </div>
     
