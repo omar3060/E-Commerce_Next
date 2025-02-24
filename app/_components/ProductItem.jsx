@@ -1,20 +1,30 @@
-import React from 'react'
-import Image from 'next/image'
-import {List} from 'lucide-react'
-const ProductItem = ({product}) => {
+
+import React from "react";
+import Image from "next/image";
+import { List } from "lucide-react";
+const ProductItem = ({ product }) => {
   return (
-    <div>
-      <Image src={product?.banner?.url} alt={`${product.title} banner`} width={400} height={350} className="rounded-t-lg h-[170px] object-cover"/>
-      <div className="p-3">
-        <h2 className="text-[16px] md:text-[20px] font-medium">{product?.title}</h2>
-        <h2 className="text-[14px] text-gray-400"><List /> {product?.category}</h2>
-        
-        
-        
+    <div className="hover:border shadow-md hover:rounded-lg border-teal-400 transition-all hover:cursor-pointer">
+      <Image
+        src={product?.banner?.url}
+        alt={`${product.title} banner`}
+        width={400}
+        height={350}
+        className="rounded-t-lg h-[170px] object-cover"
+      />
+      <div className='flex justify-between p-3 items-center bg-gray-50 rounded-b-lg'>
+        <div className="">
+          <h2 className="text-[16px] md:text-[20px] font-medium line-clamp-1">
+            {product?.title}
+          </h2>
+          <h2 className="text-[14px] text-gray-400 flex items-center gap-1">
+            <List className="w-4 h-4" /> {product?.category}
+          </h2>
+        </div>
+        <h2>{product?.price}</h2>
       </div>
     </div>
-    
-  )
-} 
+  );
+};
 
-export default ProductItem
+export default ProductItem;
