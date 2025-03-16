@@ -20,10 +20,9 @@ const productDetails = ({params}) => {
 
     <div className='px-10 py-8 md:px-28'>
       <BreadCrumb />
-      <div className='mt-10 flex flex-col md:flex-row justify-around'>
+      <div className='mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-0 justify-around'>
         <ProductBanner product = {productDetails}/>
         <ProductInfo product = {productDetails}/>
-        {params?.productId}
       </div>
     </div>
   )
