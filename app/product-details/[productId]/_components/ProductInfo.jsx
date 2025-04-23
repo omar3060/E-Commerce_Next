@@ -1,9 +1,21 @@
+'use client'
 import { AlertOctagon, BadgeCheck, ShoppingCart } from "lucide-react";
 import React from "react";
 import SkeletonProductInfo from "./SkeletonProductInfo";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const ProductInfo = ({ product }) => {
   // console.log(product.title)
+  const {user} = useUser()
+  const router = useRouter()
+  const handleAddToCart = () => {
+    if(!user) {
+      router.push('/sign-in')
+    } else {
+      // add to cart logic
+    }
+  }
   return (
     <div>
       {product ? (
@@ -22,7 +34,7 @@ const ProductInfo = ({ product }) => {
             Eligible For Instant Delivery
           </h2>
           <h2 className="text-[32px] text-primary mt-3">$ {product?.price}</h2>
-          <button className="flex gap-2 rounded-lg bg-primary hover:bg-teal-500 text-white p-3">
+          <button onClick={() => handleAddToCart()} className="flex gap-2 rounded-lg bg-primary hover:bg-teal-500 text-white p-3">
             <ShoppingCart />
             Add To Cart
           </button>
