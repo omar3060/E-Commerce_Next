@@ -23,18 +23,19 @@ const ProductInfo = ({ product }) => {
 					products: [product?.id]
 				}
 			}
-      CartApis.addToCart(data).then(res => {
-        console.log('cart created succefully', res.data.data)
-        setCart(oldCart => [
-          ...oldCart,
-          {
-            id: res?.data?.data?.id,
-            product
-          }
-        ])
-      }).catch(error => {
-        console.log('error', error)
-      })
+			CartApis.addToCart(data).then(res => {
+				console.log('cart created successfully', res.data.data)
+				setCart(oldCart => [
+					...oldCart,
+					{
+						id: res?.data?.data?.id,
+						product
+					}
+				])
+			}).catch(error => {
+				console.log('error', error)
+			})
+		
     }
   }
   return (

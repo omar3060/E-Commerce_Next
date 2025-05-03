@@ -5,33 +5,38 @@ import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../_context/CartContext'
 import CartApis from '../_utils/CartApis'
+import Cart from './Cart'
 
 function Header() {
-  console.log('href', window.location.href)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const {cart, setCart} = useContext(CartContext)
+  const [openCart, setOpenCart] = useState(false)
   useEffect(() => {
     setIsLoggedIn(window.location.href.toString().includes('sign-in'))
   }, [])
   
   const {user} = useUser()
   useEffect(()=>{
+    setCart([]); 
     user&&getCartItems()
   }, [user])
+
   const getCartItems = () => {
     CartApis.getUserCartItems(user.primaryEmailAddress.emailAddress).then(res => {
       console.log('response from cart items', res?.data?.data)
-      res?.data?.data.forEach(citem => {
+      console.log('cart', cart)
+      res?.data?.data.map(cartItem => {
         setCart((oldCart) => [
           ...oldCart,
           {
-            id: citem?.id,
-            product: citem?.attributes?.products?.data[0]
+            id: cartItem?.id,
+            product: cartItem?.products?.[0]
           }
         ])
       })
     })
   }
+
   return !isLoggedIn && (
     <header className="bg-white">
   <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8 shadow-md">
@@ -80,8 +85,13 @@ function Header() {
         </a>
       </div> : 
       <div className='flex items-center gap-5'>
-        <h2 className='flex gap-1 cursor-pointer'><ShoppingCart/>({cart?.length})</h2>
+        <h2 className='flex gap-1 cursor-pointer' onClick={() => {
+              setOpenCart(prevState => !prevState)
+          }}>
+          <ShoppingCart />
+          ({cart?.length})</h2>
         <UserButton afterSignOutUrl=''/>
+        {openCart && <Cart/>}
       </div>  
         }
         
